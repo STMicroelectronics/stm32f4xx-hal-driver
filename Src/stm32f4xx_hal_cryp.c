@@ -3528,7 +3528,6 @@ static void CRYP_AES_IT(CRYP_HandleTypeDef *hcryp)
 #endif /* USE_HAL_CRYP_REGISTER_CALLBACKS */
       }
     }
-
 #else /*AES*/
 
     /* Read the output block from the output FIFO and put them in temporary buffer
@@ -5628,11 +5627,10 @@ static HAL_StatusTypeDef CRYP_GCMCCM_SetHeaderPhase(CRYP_HandleTypeDef *hcryp, u
   uint32_t loopcounter;
   uint32_t size_in_bytes;
   uint32_t tmp;
-  uint32_t mask[16] = {0x0U, 0xFF000000U, 0xFFFF0000U, 0xFFFFFF00U,  /* 32-bit data type */
+  uint32_t mask[12] = {0x0U, 0xFF000000U, 0xFFFF0000U, 0xFFFFFF00U,  /* 32-bit data type */
                        0x0U, 0x0000FF00U, 0x0000FFFFU, 0xFF00FFFFU,  /* 16-bit data type */
-                       0x0U, 0x000000FFU, 0x0000FFFFU, 0x00FFFFFFU,  /*  8-bit data type */
-                       0x0U, 0x000000FFU, 0x0000FFFFU, 0x00FFFFFFU   /*  1-bit data type */
-                      };
+                       0x0U, 0x000000FFU, 0x0000FFFFU, 0x00FFFFFFU
+                      }; /*  8-bit data type */
 
   /***************************** Header phase for GCM/GMAC or CCM *********************************/
 
@@ -5934,11 +5932,10 @@ static HAL_StatusTypeDef CRYP_GCMCCM_SetHeaderPhase_DMA(CRYP_HandleTypeDef *hcry
   uint32_t loopcounter;
   uint32_t headersize_in_bytes;
   uint32_t tmp;
-  uint32_t mask[16] = {0x0U, 0xFF000000U, 0xFFFF0000U, 0xFFFFFF00U,  /* 32-bit data type */
+  uint32_t mask[12] = {0x0U, 0xFF000000U, 0xFFFF0000U, 0xFFFFFF00U,  /* 32-bit data type */
                        0x0U, 0x0000FF00U, 0x0000FFFFU, 0xFF00FFFFU,  /* 16-bit data type */
-                       0x0U, 0x000000FFU, 0x0000FFFFU, 0x00FFFFFFU,  /*  8-bit data type */
-                       0x0U, 0x000000FFU, 0x0000FFFFU, 0x00FFFFFFU   /*  1-bit data type */
-                      };
+                       0x0U, 0x000000FFU, 0x0000FFFFU, 0x00FFFFFFU
+                      }; /*  8-bit data type */
 
   /***************************** Header phase for GCM/GMAC or CCM *********************************/
   if (hcryp->Init.HeaderWidthUnit == CRYP_HEADERWIDTHUNIT_WORD)
@@ -6280,11 +6277,10 @@ static void CRYP_GCMCCM_SetHeaderPhase_IT(CRYP_HandleTypeDef *hcryp)
   uint32_t npblb;
 #endif /* AES */
   uint32_t tmp;
-  uint32_t mask[16] = {0x0U, 0xFF000000U, 0xFFFF0000U, 0xFFFFFF00U,  /* 32-bit data type */
+  uint32_t mask[12] = {0x0U, 0xFF000000U, 0xFFFF0000U, 0xFFFFFF00U,  /* 32-bit data type */
                        0x0U, 0x0000FF00U, 0x0000FFFFU, 0xFF00FFFFU,  /* 16-bit data type */
-                       0x0U, 0x000000FFU, 0x0000FFFFU, 0x00FFFFFFU,  /*  8-bit data type */
-                       0x0U, 0x000000FFU, 0x0000FFFFU, 0x00FFFFFFU   /*  1-bit data type */
-                      };
+                       0x0U, 0x000000FFU, 0x0000FFFFU, 0x00FFFFFFU
+                      }; /*  8-bit data type */
 
   if (hcryp->Init.HeaderWidthUnit == CRYP_HEADERWIDTHUNIT_WORD)
   {
