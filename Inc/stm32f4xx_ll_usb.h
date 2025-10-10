@@ -419,9 +419,9 @@ typedef USB_HCTypeDef       USB_OTG_HCTypeDef;
 /** @defgroup USB_LL_HPRT0_PRTSPD_SPEED_Defines USB Low Layer HPRT0 PRTSPD Speed Defines
   * @{
   */
-#define HPRT0_PRTSPD_HIGH_SPEED                0U
-#define HPRT0_PRTSPD_FULL_SPEED                1U
-#define HPRT0_PRTSPD_LOW_SPEED                 2U
+#define HPRT0_PRTSPD_HIGH_SPEED                0UL
+#define HPRT0_PRTSPD_FULL_SPEED                1UL
+#define HPRT0_PRTSPD_LOW_SPEED                 2UL
 /**
   * @}
   */
