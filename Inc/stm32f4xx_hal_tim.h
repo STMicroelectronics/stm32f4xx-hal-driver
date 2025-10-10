@@ -280,6 +280,7 @@ typedef struct
 
   uint32_t BreakFilter;          /*!< Specifies the break input filter.This parameter can be a number between Min_Data = 0x0 and Max_Data = 0xF */
 
+
   uint32_t AutomaticOutput;      /*!< TIM Automatic Output Enable state, This parameter can be a value of @ref TIM_AOE_Bit_Set_Reset */
 
 } TIM_BreakDeadTimeConfigTypeDef;
@@ -1861,14 +1862,10 @@ typedef  void (*pTIM_CallbackTypeDef)(TIM_HandleTypeDef *htim);  /*!< pointer to
 
 #define TIM_CHANNEL_N_STATE_SET_ALL(__HANDLE__,  __CHANNEL_STATE__)\
   do {\
-    (__HANDLE__)->ChannelNState[0] = \
-    (__CHANNEL_STATE__);  \
-    (__HANDLE__)->ChannelNState[1] = \
-    (__CHANNEL_STATE__);  \
-    (__HANDLE__)->ChannelNState[2] = \
-    (__CHANNEL_STATE__);  \
-    (__HANDLE__)->ChannelNState[3] = \
-    (__CHANNEL_STATE__);  \
+    (__HANDLE__)->ChannelNState[0] = (__CHANNEL_STATE__);  \
+    (__HANDLE__)->ChannelNState[1] = (__CHANNEL_STATE__);  \
+    (__HANDLE__)->ChannelNState[2] = (__CHANNEL_STATE__);  \
+    (__HANDLE__)->ChannelNState[3] = (__CHANNEL_STATE__);  \
   } while(0)
 
 /**
