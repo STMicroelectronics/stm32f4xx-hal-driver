@@ -1245,8 +1245,8 @@ uint32_t HAL_CAN_IsSleepActive(const CAN_HandleTypeDef *hcan)
   * @param  pHeader pointer to a CAN_TxHeaderTypeDef structure.
   * @param  aData array containing the payload of the Tx frame.
   * @param  pTxMailbox pointer to a variable where the function will return
-  *         the TxMailbox used to store the Tx message.
-  *         This parameter can be a value of @arg CAN_Tx_Mailboxes.
+  *         the TxMailbox used to store the Tx message,
+  *         with a value of @arg CAN_Tx_Mailboxes.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_CAN_AddTxMessage(CAN_HandleTypeDef *hcan, const CAN_TxHeaderTypeDef *pHeader,
