@@ -21,6 +21,10 @@ Two models of publication are proposed for the STM32Cube embedded software:
 
 This **stm32f4xx_hal_driver** MCU component repository is one element of the STM32CubeF4 MCU embedded software package, providing the **HAL-LL Drivers** part.
 
+## Beginner Example: GPIO LED Blink
+This example (`/Src/examples/stm32f4xx_hal_led.c`) shows how to blink an LED using STM32F4 HAL functions.  
+Clear comments explain the underlying registers (RCC_AHB1ENR, GPIOx_MODER, GPIOx_ODR) so beginners can connect HAL abstractions with hardware logic.
+
 ## Release note
 
 Details about the content of this release are available in the release note [here](https://htmlpreview.github.io/?https://github.com/STMicroelectronics/stm32f4xx_hal_driver/blob/master/Release_Notes.html).
