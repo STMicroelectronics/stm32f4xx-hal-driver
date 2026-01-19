@@ -197,7 +197,7 @@ static HAL_StatusTypeDef I2SEx_FullDuplexWaitFlagStateUntilTimeout(I2S_HandleTyp
   * @note   When a 16-bit data frame or a 16-bit data frame extended is selected during the I2S
   *         configuration phase, the Size parameter means the number of 16-bit data length
   *         in the transaction and when a 24-bit data frame or a 32-bit data frame is selected
-  *         the Size parameter means the number of 16-bit data length.
+  *         the Size parameter means the number of 24-bit or 32-bit data length.
   * @param  Timeout Timeout duration
   * @note   The I2S is kept enabled at the end of transaction to avoid the clock de-synchronization
   *         between Master and Slave(example: audio streaming).
@@ -228,7 +228,7 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive(I2S_HandleTypeDef *hi2s,
   /* Check the Data format: When a 16-bit data frame or a 16-bit data frame extended
      is selected during the I2S configuration phase, the Size parameter means the number
      of 16-bit data length in the transaction and when a 24-bit data frame or a 32-bit data
-     frame is selected the Size parameter means the number of 16-bit data length. */
+     frame is selected the Size parameter means the number of 24-bit or 32-bit data length. */
   if ((tmp1 == I2S_DATAFORMAT_24B) || (tmp1 == I2S_DATAFORMAT_32B))
   {
     hi2s->TxXferSize  = (Size << 1U);
@@ -431,7 +431,7 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive(I2S_HandleTypeDef *hi2s,
   * @note   When a 16-bit data frame or a 16-bit data frame extended is selected during the I2S
   *         configuration phase, the Size parameter means the number of 16-bit data length
   *         in the transaction and when a 24-bit data frame or a 32-bit data frame is selected
-  *         the Size parameter means the number of 16-bit data length.
+  *         the Size parameter means the number of 24-bit or 32-bit data length.
   * @note   The I2S is kept enabled at the end of transaction to avoid the clock de-synchronization
   *         between Master and Slave(example: audio streaming).
   * @retval HAL status
@@ -463,7 +463,7 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_IT(I2S_HandleTypeDef *hi2s,
   /* Check the Data format: When a 16-bit data frame or a 16-bit data frame extended
   is selected during the I2S configuration phase, the Size parameter means the number
   of 16-bit data length in the transaction and when a 24-bit data frame or a 32-bit data
-  frame is selected the Size parameter means the number of 16-bit data length. */
+  frame is selected the Size parameter means the number of 24-bit or 32-bit data length. */
   if ((tmp1 == I2S_DATAFORMAT_24B) || (tmp1 == I2S_DATAFORMAT_32B))
   {
     hi2s->TxXferSize  = (Size << 1U);
@@ -540,7 +540,7 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_IT(I2S_HandleTypeDef *hi2s,
   * @note   When a 16-bit data frame or a 16-bit data frame extended is selected during the I2S
   *         configuration phase, the Size parameter means the number of 16-bit data length
   *         in the transaction and when a 24-bit data frame or a 32-bit data frame is selected
-  *         the Size parameter means the number of 16-bit data length.
+  *         the Size parameter means the number of 24-bit or 32-bit data length.
   * @note   The I2S is kept enabled at the end of transaction to avoid the clock de-synchronization
   *         between Master and Slave(example: audio streaming).
   * @retval HAL status
@@ -574,7 +574,7 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_DMA(I2S_HandleTypeDef *hi2s,
   /* Check the Data format: When a 16-bit data frame or a 16-bit data frame extended
   is selected during the I2S configuration phase, the Size parameter means the number
   of 16-bit data length in the transaction and when a 24-bit data frame or a 32-bit data
-  frame is selected the Size parameter means the number of 16-bit data length. */
+  frame is selected the Size parameter means the number of 24-bit or 32-bit data length. */
   if ((tmp1 == I2S_DATAFORMAT_24B) || (tmp1 == I2S_DATAFORMAT_32B))
   {
     hi2s->TxXferSize  = (Size << 1U);
