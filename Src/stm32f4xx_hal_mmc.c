@@ -1551,14 +1551,15 @@ void HAL_MMC_IRQHandler(MMC_HandleTypeDef *hmmc)
 #endif
         }
       }
+      /* Disable the DMA transfer for transmit request by setting the DMAEN bit
+      in the MMC DCTRL register */
+      hmmc->Instance->DCTRL &= (uint32_t)~((uint32_t)SDIO_DCTRL_DMAEN);
+      /* Clear all the static flags */
+      __HAL_MMC_CLEAR_FLAG(hmmc, SDIO_STATIC_DATA_FLAGS);
+      hmmc->State = HAL_MMC_STATE_READY;
+      hmmc->Context = MMC_CONTEXT_NONE;
       if(((context & MMC_CONTEXT_READ_SINGLE_BLOCK) == 0U) && ((context & MMC_CONTEXT_READ_MULTIPLE_BLOCK) == 0U))
       {
-        /* Disable the DMA transfer for transmit request by setting the DMAEN bit
-        in the MMC DCTRL register */
-        hmmc->Instance->DCTRL &= (uint32_t)~((uint32_t)SDIO_DCTRL_DMAEN);
-        
-        hmmc->State = HAL_MMC_STATE_READY;
-        
 #if defined (USE_HAL_MMC_REGISTER_CALLBACKS) && (USE_HAL_MMC_REGISTER_CALLBACKS == 1U)
         hmmc->TxCpltCallback(hmmc);
 #else
@@ -3007,6 +3008,36 @@ static uint32_t MMC_ReadExtCSD(MMC_HandleTypeDef *hmmc, uint32_t *pFieldData, ui
       hmmc->State= HAL_MMC_STATE_READY;
       return HAL_TIMEOUT;
     }
+  }
+
+  /* Get error state */
+  if (__HAL_MMC_GET_FLAG(hmmc, SDIO_FLAG_DTIMEOUT))
+  {
+    /* Clear all the static flags */
+    __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_STATIC_FLAGS);
+    hmmc->ErrorCode |= HAL_MMC_ERROR_DATA_TIMEOUT;
+    hmmc->State = HAL_MMC_STATE_READY;
+    return HAL_ERROR;
+  }
+  else if (__HAL_MMC_GET_FLAG(hmmc, SDIO_FLAG_DCRCFAIL))
+  {
+    /* Clear all the static flags */
+    __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_STATIC_FLAGS);
+    hmmc->ErrorCode |= HAL_MMC_ERROR_DATA_CRC_FAIL;
+    hmmc->State = HAL_MMC_STATE_READY;
+    return HAL_ERROR;
+  }
+  else if (__HAL_MMC_GET_FLAG(hmmc, SDIO_FLAG_RXOVERR))
+  {
+    /* Clear all the static flags */
+    __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_STATIC_FLAGS);
+    hmmc->ErrorCode |= HAL_MMC_ERROR_RX_OVERRUN;
+    hmmc->State = HAL_MMC_STATE_READY;
+    return HAL_ERROR;
+  }
+  else
+  {
+    /* Nothing to do */
   }
 
   /* While card is not ready for data and trial number for sending CMD13 is not exceeded */
