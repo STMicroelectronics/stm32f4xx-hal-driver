@@ -380,7 +380,13 @@ HAL_StatusTypeDef HAL_SD_Init(SD_HandleTypeDef *hsd)
   {
     return HAL_ERROR;
   }
-
+  
+  /* Configure the bus wide with the specified value in the SD_HandleTypeDef */
+  if(HAL_SD_ConfigWideBusOperation(hsd, hsd->Init.BusWide) != HAL_OK)
+  {
+    return HAL_ERROR;
+  }
+  
   /* Initialize the error code */
   hsd->ErrorCode = HAL_SD_ERROR_NONE;
 
@@ -2747,9 +2753,6 @@ static uint32_t SD_InitCard(SD_HandleTypeDef *hsd)
   {
     return errorstate;
   }
-
-  /* Configure SDIO peripheral interface */
-  (void)SDIO_Init(hsd->Instance, hsd->Init);
 
   /* All cards are initialized */
   return HAL_SD_ERROR_NONE;
