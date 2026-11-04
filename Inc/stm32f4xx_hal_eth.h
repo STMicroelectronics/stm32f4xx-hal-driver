@@ -22,7 +22,7 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif /* __cplusplus */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal_def.h"
@@ -227,14 +227,17 @@ typedef struct
                                                      This parameter can be a value of @ref ETH_Source_Addr_Control */
 
   FunctionalState
-  ChecksumOffload;             /*!< Enables or Disable the checksum checking for received packet payloads TCP, UDP or ICMP headers */
+  ChecksumOffload;             /*!< Enables or Disable the checksum checking for received packet payloads TCP, UDP or
+                                    ICMP headers */
 
   uint32_t         InterPacketGapVal;           /*!< Sets the minimum IPG between Packet during transmission.
                                                      This parameter can be a value of @ref ETH_Inter_Packet_Gap */
 
   FunctionalState  GiantPacketSizeLimitControl; /*!< Enables or disables the Giant Packet Size Limit Control. */
 
-  FunctionalState  Support2KPacket;             /*!< Enables or disables the IEEE 802.3as Support for 2K length Packets */
+  FunctionalState  Support2KPacket;
+  /*!< Enables or disables the IEEE 802.3as Support for 2K length Packets
+  */
 
   FunctionalState  CRCStripTypePacket;          /*!< Enables or disables the CRC stripping for Type packets.*/
 
@@ -245,8 +248,8 @@ typedef struct
   FunctionalState  Jabber;                      /*!< Enables or disables Jabber timer on Tx path.*/
 
   FunctionalState  JumboPacket;                 /*!< Enables or disables receiving Jumbo Packet
-                                                           When enabled, the MAC allows jumbo packets of 9,018 bytes
-                                                           without reporting a giant packet error */
+                                                     When enabled, the MAC allows jumbo packets of 9,018 bytes
+                                                     without reporting a giant packet error */
 
   uint32_t         Speed;                       /*!< Sets the Ethernet speed: 10/100 Mbps.
                                                            This parameter can be a value of @ref ETH_Speed */
@@ -265,7 +268,8 @@ typedef struct
   CarrierSenseDuringTransmit;  /*!< Enables or disables the Carrier Sense During Transmission in the Half Duplex mode */
 
   FunctionalState
-  RetryTransmission;           /*!< Enables or disables the MAC retry transmission, when a collision occurs in Half Duplex mode.*/
+  RetryTransmission;           /*!< Enables or disables the MAC retry transmission, when a collision occurs in Half
+                                    Duplex mode. */
 
   uint32_t         BackOffLimit;                /*!< Selects the BackOff limit value.
                                                         This parameter can be a value of @ref ETH_Back_Off_Limit */
@@ -298,23 +302,28 @@ typedef struct
                                                         This parameter can be a value of @ref ETH_Watchdog_Timeout */
 
   uint32_t
-  PauseTime;                   /*!< This field holds the value to be used in the Pause Time field in the transmit control packet.
-                                                   This parameter must be a number between
-                                                   Min_Data = 0x0 and Max_Data = 0xFFFF.*/
+  PauseTime;
+  /*!< This field holds the value to be used in the Pause Time field in the
+    Pause control packet.
+    This parameter must be a number between
+    Min_Data = 0x0 and Max_Data = 0xFFFF. */
 
   FunctionalState
   ZeroQuantaPause;             /*!< Enable or disables the automatic generation of Zero Quanta Pause Control packets.*/
 
   uint32_t
-  PauseLowThreshold;           /*!< This field configures the threshold of the PAUSE to be checked for automatic retransmission of PAUSE Packet.
-                                                   This parameter can be a value of @ref ETH_Pause_Low_Threshold */
+  PauseLowThreshold;
+  /*!< This field configures the PAUSE threshold checked for automatic
+    retransmission of PAUSE packets.
+    This parameter can be a value of @ref ETH_Pause_Low_Threshold */
 
   FunctionalState
   TransmitFlowControl;         /*!< Enables or disables the MAC to transmit Pause packets in Full Duplex mode
                                                    or the MAC back pressure operation in Half Duplex mode */
 
   FunctionalState
-  UnicastPausePacketDetect;    /*!< Enables or disables the MAC to detect Pause packets with unicast address of the station */
+  UnicastPausePacketDetect;    /*!< Enables or disables the MAC to detect Pause packets with unicast address of the
+                                    station */
 
   FunctionalState  ReceiveFlowControl;          /*!< Enables or disables the MAC to decodes the received Pause packet
                                                   and disables its transmitter for a specified (Pause) time */
@@ -380,9 +389,9 @@ typedef struct
                                                              @ref ETH_Receive_Threshold_Control */
 
   FunctionalState
-  SecondFrameOperate;          /*!< Selects or not the Operate on second frame mode, which allows the DMA to process a second
-                                                             frame of Transmit data even before obtaining
-                                                             the status for the first frame */
+  SecondFrameOperate;
+  /*!< Selects second-frame mode, which allows DMA to process a second
+    transmit frame before obtaining the status for the first frame */
 
   FunctionalState      EnhancedDescriptorFormat;    /*!< Enables the enhanced descriptor format */
 
@@ -556,12 +565,13 @@ typedef struct
                                                              This parameter can be a combination of
                                                              @ref ETH_MAC_Rx_Tx_Status */
 
-  __IO uint32_t              MACWakeUpEvent;            /*!< Holds the Wake Up event when the MAC exit the power down mode
-                                                             This parameter can be a value of
-                                                             @ref ETH_MAC_Wake_Up_Event */
+  __IO uint32_t              MACWakeUpEvent;
+  /*!< Holds the Wake Up event when the MAC exits power-down mode.
+    This parameter can be a value of @ref ETH_MAC_Wake_Up_Event */
 
-  __IO uint32_t              MACLPIEvent;               /*!< Holds the LPI event when the an LPI status interrupt occurs.
-                                                             This parameter can be a value of @ref ETHEx_LPI_Event */
+  __IO uint32_t              MACLPIEvent;
+  /*!< Holds the LPI event when an LPI status interrupt occurs.
+    This parameter can be a value of @ref ETHEx_LPI_Event */
 
   __IO uint32_t              IsPtpConfigured;           /*!< Holds the PTP configuration status.
                                                              This parameter can be a value of
@@ -569,14 +579,16 @@ typedef struct
 
 #if (USE_HAL_ETH_REGISTER_CALLBACKS == 1)
 
-  void (* TxCpltCallback)(struct __ETH_HandleTypeDef *heth);             /*!< ETH Tx Complete Callback */
-  void (* RxCpltCallback)(struct __ETH_HandleTypeDef *heth);            /*!< ETH Rx  Complete Callback     */
-  void (* ErrorCallback)(struct __ETH_HandleTypeDef *heth);             /*!< ETH Error Callback   */
-  void (* PMTCallback)(struct __ETH_HandleTypeDef *heth);               /*!< ETH Power Management Callback            */
-  void (* WakeUpCallback)(struct __ETH_HandleTypeDef *heth);            /*!< ETH Wake UP Callback   */
+  void (* TxCpltCallback)(struct __ETH_HandleTypeDef *heth);             /*!< ETH Tx Complete Callback      */
+  void (* RxCpltCallback)(struct __ETH_HandleTypeDef *heth);             /*!< ETH Rx  Complete Callback     */
+  void (* ErrorCallback)(struct __ETH_HandleTypeDef *heth);              /*!< ETH Error Callback            */
+  void (* PMTCallback)(struct __ETH_HandleTypeDef *heth);                /*!< ETH Power Management Callback */
+  void (* WakeUpCallback)(struct __ETH_HandleTypeDef *heth);             /*!< ETH Wake UP Callback          */
 
-  void (* MspInitCallback)(struct __ETH_HandleTypeDef *heth);             /*!< ETH Msp Init callback              */
-  void (* MspDeInitCallback)(struct __ETH_HandleTypeDef *heth);           /*!< ETH Msp DeInit callback            */
+  void (* MspInitCallback)(struct __ETH_HandleTypeDef *heth);
+  /*!< ETH Msp Init callback */
+  void (* MspDeInitCallback)(struct __ETH_HandleTypeDef *heth);
+  /*!< ETH Msp DeInit callback */
 
 #endif  /* USE_HAL_ETH_REGISTER_CALLBACKS */
 
@@ -702,20 +714,28 @@ typedef struct
 #define ETH_DMATXDESC_CIC                     0x00C00000U  /*!< Checksum Insertion Control: 4 cases */
 #define ETH_DMATXDESC_CIC_BYPASS              0x00000000U  /*!< Do Nothing: Checksum Engine is bypassed */
 #define ETH_DMATXDESC_CIC_IPV4HEADER          0x00400000U  /*!< IPV4 header Checksum Insertion */
-#define ETH_DMATXDESC_CIC_TCPUDPICMP_SEGMENT  0x00800000U  /*!< TCP/UDP/ICMP Checksum Insertion calculated over segment only */
+#define ETH_DMATXDESC_CIC_TCPUDPICMP_SEGMENT  0x00800000U
+/*!< TCP/UDP/ICMP Checksum Insertion calculated over segment
+     only */
 #define ETH_DMATXDESC_CIC_TCPUDPICMP_FULL     0x00C00000U  /*!< TCP/UDP/ICMP Checksum Insertion fully calculated */
 #define ETH_DMATXDESC_TER                     0x00200000U  /*!< Transmit End of Ring */
 #define ETH_DMATXDESC_TCH                     0x00100000U  /*!< Second Address Chained */
 #define ETH_DMATXDESC_TTSS                    0x00020000U  /*!< Tx Time Stamp Status */
 #define ETH_DMATXDESC_IHE                     0x00010000U  /*!< IP Header Error */
-#define ETH_DMATXDESC_ES                      0x00008000U  /*!< Error summary: OR of the following bits: UE || ED || EC || LCO || NC || LCA || FF || JT */
+#define ETH_DMATXDESC_ES                      0x00008000U
+/*!< Error summary: OR of the following bits: UE || ED || EC
+     || LCO || NC || LCA || FF || JT */
 #define ETH_DMATXDESC_JT                      0x00004000U  /*!< Jabber Timeout */
-#define ETH_DMATXDESC_FF                      0x00002000U  /*!< Frame Flushed: DMA/MTL flushed the frame due to SW flush */
+#define ETH_DMATXDESC_FF                      0x00002000U
+/*!< Frame Flushed: DMA/MTL flushed the frame due to SW flush
+*/
 #define ETH_DMATXDESC_PCE                     0x00001000U  /*!< Payload Checksum Error */
 #define ETH_DMATXDESC_LCA                     0x00000800U  /*!< Loss of Carrier: carrier lost during transmission */
 #define ETH_DMATXDESC_NC                      0x00000400U  /*!< No Carrier: no carrier signal from the transceiver */
 #define ETH_DMATXDESC_LCO                     0x00000200U  /*!< Late Collision: transmission aborted due to collision */
-#define ETH_DMATXDESC_EC                      0x00000100U  /*!< Excessive Collision: transmission aborted after 16 collisions */
+#define ETH_DMATXDESC_EC                      0x00000100U
+/*!< Excessive Collision: transmission aborted after 16
+     collisions */
 #define ETH_DMATXDESC_VF                      0x00000080U  /*!< VLAN Frame */
 #define ETH_DMATXDESC_CC                      0x00000078U  /*!< Collision Count */
 #define ETH_DMATXDESC_ED                      0x00000004U  /*!< Excessive Deferral */
@@ -777,7 +797,9 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
 #define ETH_DMARXDESC_OWN         0x80000000U  /*!< OWN bit: descriptor is owned by DMA engine  */
 #define ETH_DMARXDESC_AFM         0x40000000U  /*!< DA Filter Fail for the rx frame  */
 #define ETH_DMARXDESC_FL          0x3FFF0000U  /*!< Receive descriptor frame length  */
-#define ETH_DMARXDESC_ES          0x00008000U  /*!< Error summary: OR of the following bits: DE || OE || IPC || LC || RWT || RE || CE */
+#define ETH_DMARXDESC_ES          0x00008000U
+/*!< Error summary: OR of the following bits: DE || OE || IPC || LC ||
+     RWT || RE || CE */
 #define ETH_DMARXDESC_DE          0x00004000U  /*!< Descriptor error: no more descriptors for receive frame  */
 #define ETH_DMARXDESC_SAF         0x00002000U  /*!< SA Filter Fail for the received frame */
 #define ETH_DMARXDESC_LE          0x00001000U  /*!< Frame size not matching with length field */
@@ -788,11 +810,14 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
 #define ETH_DMARXDESC_IPV4HCE     0x00000080U  /*!< IPC Checksum Error: Rx Ipv4 header checksum error   */
 #define ETH_DMARXDESC_LC          0x00000040U  /*!< Late collision occurred during reception   */
 #define ETH_DMARXDESC_FT          0x00000020U  /*!< Frame type - Ethernet, otherwise 802.3    */
-#define ETH_DMARXDESC_RWT         0x00000010U  /*!< Receive Watchdog Timeout: watchdog timer expired during reception    */
+#define ETH_DMARXDESC_RWT         0x00000010U
+/*!< Receive Watchdog Timeout: watchdog timer expired during reception */
 #define ETH_DMARXDESC_RE          0x00000008U  /*!< Receive error: error reported by MII interface  */
 #define ETH_DMARXDESC_DBE         0x00000004U  /*!< Dribble bit error: frame contains non int multiple of 8 bits  */
 #define ETH_DMARXDESC_CE          0x00000002U  /*!< CRC error */
-#define ETH_DMARXDESC_MAMPCE      0x00000001U  /*!< Rx MAC Address/Payload Checksum Error: Rx MAC address matched/ Rx Payload Checksum Error */
+#define ETH_DMARXDESC_MAMPCE      0x00000001U
+/*!< Rx MAC Address/Payload Checksum Error: Rx MAC address matched/ Rx
+     Payload Checksum Error */
 
 /**
   * @brief  Bit definition of RDES1 register
@@ -993,18 +1018,30 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
 /** @defgroup ETH_Tx_DMA_Burst_Length ETH Tx DMA Burst Length
   * @{
   */
-#define ETH_TXDMABURSTLENGTH_1BEAT          0x00000100U  /*!< maximum number of beats to be transferred in one TxDMA (or both) transaction is 1 */
-#define ETH_TXDMABURSTLENGTH_2BEAT          0x00000200U  /*!< maximum number of beats to be transferred in one TxDMA (or both) transaction is 2 */
-#define ETH_TXDMABURSTLENGTH_4BEAT          0x00000400U  /*!< maximum number of beats to be transferred in one TxDMA (or both) transaction is 4 */
-#define ETH_TXDMABURSTLENGTH_8BEAT          0x00000800U  /*!< maximum number of beats to be transferred in one TxDMA (or both) transaction is 8 */
-#define ETH_TXDMABURSTLENGTH_16BEAT         0x00001000U  /*!< maximum number of beats to be transferred in one TxDMA (or both) transaction is 16 */
-#define ETH_TXDMABURSTLENGTH_32BEAT         0x00002000U  /*!< maximum number of beats to be transferred in one TxDMA (or both) transaction is 32 */
-#define ETH_TXDMABURSTLENGTH_4XPBL_4BEAT    0x01000100U  /*!< maximum number of beats to be transferred in one TxDMA (or both) transaction is 4 */
-#define ETH_TXDMABURSTLENGTH_4XPBL_8BEAT    0x01000200U  /*!< maximum number of beats to be transferred in one TxDMA (or both) transaction is 8 */
-#define ETH_TXDMABURSTLENGTH_4XPBL_16BEAT   0x01000400U  /*!< maximum number of beats to be transferred in one TxDMA (or both) transaction is 16 */
-#define ETH_TXDMABURSTLENGTH_4XPBL_32BEAT   0x01000800U  /*!< maximum number of beats to be transferred in one TxDMA (or both) transaction is 32 */
-#define ETH_TXDMABURSTLENGTH_4XPBL_64BEAT   0x01001000U  /*!< maximum number of beats to be transferred in one TxDMA (or both) transaction is 64 */
-#define ETH_TXDMABURSTLENGTH_4XPBL_128BEAT  0x01002000U  /*!< maximum number of beats to be transferred in one TxDMA (or both) transaction is 128 */
+#define ETH_TXDMABURSTLENGTH_1BEAT          0x00000100U  /*!< maximum number of beats to be transferred in one
+                                                              TxDMA (or both) transaction is 1 */
+#define ETH_TXDMABURSTLENGTH_2BEAT          0x00000200U  /*!< maximum number of beats to be transferred in one
+                                                              TxDMA (or both) transaction is 2 */
+#define ETH_TXDMABURSTLENGTH_4BEAT          0x00000400U  /*!< maximum number of beats to be transferred in one
+                                                              TxDMA (or both) transaction is 4 */
+#define ETH_TXDMABURSTLENGTH_8BEAT          0x00000800U  /*!< maximum number of beats to be transferred in one
+                                                              TxDMA (or both) transaction is 8 */
+#define ETH_TXDMABURSTLENGTH_16BEAT         0x00001000U  /*!< maximum number of beats to be transferred in one
+                                                              TxDMA (or both) transaction is 16 */
+#define ETH_TXDMABURSTLENGTH_32BEAT         0x00002000U  /*!< maximum number of beats to be transferred in one
+                                                              TxDMA (or both) transaction is 32 */
+#define ETH_TXDMABURSTLENGTH_4XPBL_4BEAT    0x01000100U  /*!< maximum number of beats to be transferred in one
+                                                              TxDMA (or both) transaction is 4 */
+#define ETH_TXDMABURSTLENGTH_4XPBL_8BEAT    0x01000200U  /*!< maximum number of beats to be transferred in one
+                                                              TxDMA (or both) transaction is 8 */
+#define ETH_TXDMABURSTLENGTH_4XPBL_16BEAT   0x01000400U  /*!< maximum number of beats to be transferred in one
+                                                              TxDMA (or both) transaction is 16 */
+#define ETH_TXDMABURSTLENGTH_4XPBL_32BEAT   0x01000800U  /*!< maximum number of beats to be transferred in one
+                                                              TxDMA (or both) transaction is 32 */
+#define ETH_TXDMABURSTLENGTH_4XPBL_64BEAT   0x01001000U  /*!< maximum number of beats to be transferred in one
+                                                              TxDMA (or both) transaction is 64 */
+#define ETH_TXDMABURSTLENGTH_4XPBL_128BEAT  0x01002000U  /*!< maximum number of beats to be transferred in one
+                                                              TxDMA (or both) transaction is 128 */
 /**
   * @}
   */
@@ -1012,18 +1049,30 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
 /** @defgroup ETH_Rx_DMA_Burst_Length ETH Rx DMA Burst Length
   * @{
   */
-#define ETH_RXDMABURSTLENGTH_1BEAT          0x00020000U  /*!< maximum number of beats to be transferred in one RxDMA transaction is 1 */
-#define ETH_RXDMABURSTLENGTH_2BEAT          0x00040000U  /*!< maximum number of beats to be transferred in one RxDMA transaction is 2 */
-#define ETH_RXDMABURSTLENGTH_4BEAT          0x00080000U  /*!< maximum number of beats to be transferred in one RxDMA transaction is 4 */
-#define ETH_RXDMABURSTLENGTH_8BEAT          0x00100000U  /*!< maximum number of beats to be transferred in one RxDMA transaction is 8 */
-#define ETH_RXDMABURSTLENGTH_16BEAT         0x00200000U  /*!< maximum number of beats to be transferred in one RxDMA transaction is 16 */
-#define ETH_RXDMABURSTLENGTH_32BEAT         0x00400000U  /*!< maximum number of beats to be transferred in one RxDMA transaction is 32 */
-#define ETH_RXDMABURSTLENGTH_4XPBL_4BEAT    0x01020000U  /*!< maximum number of beats to be transferred in one RxDMA transaction is 4 */
-#define ETH_RXDMABURSTLENGTH_4XPBL_8BEAT    0x01040000U  /*!< maximum number of beats to be transferred in one RxDMA transaction is 8 */
-#define ETH_RXDMABURSTLENGTH_4XPBL_16BEAT   0x01080000U  /*!< maximum number of beats to be transferred in one RxDMA transaction is 16 */
-#define ETH_RXDMABURSTLENGTH_4XPBL_32BEAT   0x01100000U  /*!< maximum number of beats to be transferred in one RxDMA transaction is 32 */
-#define ETH_RXDMABURSTLENGTH_4XPBL_64BEAT   0x01200000U  /*!< maximum number of beats to be transferred in one RxDMA transaction is 64 */
-#define ETH_RXDMABURSTLENGTH_4XPBL_128BEAT  0x01400000U  /*!< maximum number of beats to be transferred in one RxDMA transaction is 128 */
+#define ETH_RXDMABURSTLENGTH_1BEAT          0x00020000U  /*!< maximum number of beats to be transferred in one
+                                                              RxDMA transaction is 1 */
+#define ETH_RXDMABURSTLENGTH_2BEAT          0x00040000U  /*!< maximum number of beats to be transferred in one
+                                                              RxDMA transaction is 2 */
+#define ETH_RXDMABURSTLENGTH_4BEAT          0x00080000U  /*!< maximum number of beats to be transferred in one
+                                                              RxDMA transaction is 4 */
+#define ETH_RXDMABURSTLENGTH_8BEAT          0x00100000U  /*!< maximum number of beats to be transferred in one
+                                                              RxDMA transaction is 8 */
+#define ETH_RXDMABURSTLENGTH_16BEAT         0x00200000U  /*!< maximum number of beats to be transferred in one
+                                                              RxDMA transaction is 16 */
+#define ETH_RXDMABURSTLENGTH_32BEAT         0x00400000U  /*!< maximum number of beats to be transferred in one
+                                                              RxDMA transaction is 32 */
+#define ETH_RXDMABURSTLENGTH_4XPBL_4BEAT    0x01020000U  /*!< maximum number of beats to be transferred in one
+                                                              RxDMA transaction is 4 */
+#define ETH_RXDMABURSTLENGTH_4XPBL_8BEAT    0x01040000U  /*!< maximum number of beats to be transferred in one
+                                                              RxDMA transaction is 8 */
+#define ETH_RXDMABURSTLENGTH_4XPBL_16BEAT   0x01080000U  /*!< maximum number of beats to be transferred in one
+                                                              RxDMA transaction is 16 */
+#define ETH_RXDMABURSTLENGTH_4XPBL_32BEAT   0x01100000U  /*!< maximum number of beats to be transferred in one
+                                                              RxDMA transaction is 32 */
+#define ETH_RXDMABURSTLENGTH_4XPBL_64BEAT   0x01200000U  /*!< maximum number of beats to be transferred in one
+                                                              RxDMA transaction is 64 */
+#define ETH_RXDMABURSTLENGTH_4XPBL_128BEAT  0x01400000U  /*!< maximum number of beats to be transferred in one
+                                                              RxDMA transaction is 128 */
 /**
   * @}
   */
@@ -1354,9 +1403,15 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
 /** @defgroup ETH_Pass_Control_Frames ETH Pass Control Frames
   * @{
   */
-#define ETH_PASSCONTROLFRAMES_BLOCKALL                0x00000040U  /*!< MAC filters all control frames from reaching the application */
-#define ETH_PASSCONTROLFRAMES_FORWARDALL              0x00000080U  /*!< MAC forwards all control frames to application even if they fail the Address Filter */
-#define ETH_PASSCONTROLFRAMES_FORWARDPASSEDADDRFILTER 0x000000C0U  /*!< MAC forwards control frames that pass the Address Filter. */
+#define ETH_PASSCONTROLFRAMES_BLOCKALL                0x00000040U
+/*!< MAC filters all control frames from reaching the
+     application */
+#define ETH_PASSCONTROLFRAMES_FORWARDALL              0x00000080U
+/*!< MAC forwards all control frames to application
+     even if they fail the Address Filter */
+#define ETH_PASSCONTROLFRAMES_FORWARDPASSEDADDRFILTER 0x000000C0U
+/*!< MAC forwards control frames that pass the
+     Address Filter. */
 /**
   * @}
   */
@@ -1481,14 +1536,30 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
 /** @defgroup ETH_Transmit_Threshold_Control ETH Transmit Threshold Control
   * @{
   */
-#define ETH_TRANSMITTHRESHOLDCONTROL_64BYTES     0x00000000U  /*!< threshold level of the MTL Transmit FIFO is 64 Bytes */
-#define ETH_TRANSMITTHRESHOLDCONTROL_128BYTES    0x00004000U  /*!< threshold level of the MTL Transmit FIFO is 128 Bytes */
-#define ETH_TRANSMITTHRESHOLDCONTROL_192BYTES    0x00008000U  /*!< threshold level of the MTL Transmit FIFO is 192 Bytes */
-#define ETH_TRANSMITTHRESHOLDCONTROL_256BYTES    0x0000C000U  /*!< threshold level of the MTL Transmit FIFO is 256 Bytes */
-#define ETH_TRANSMITTHRESHOLDCONTROL_40BYTES     0x00010000U  /*!< threshold level of the MTL Transmit FIFO is 40 Bytes */
-#define ETH_TRANSMITTHRESHOLDCONTROL_32BYTES     0x00014000U  /*!< threshold level of the MTL Transmit FIFO is 32 Bytes */
-#define ETH_TRANSMITTHRESHOLDCONTROL_24BYTES     0x00018000U  /*!< threshold level of the MTL Transmit FIFO is 24 Bytes */
-#define ETH_TRANSMITTHRESHOLDCONTROL_16BYTES     0x0001C000U  /*!< threshold level of the MTL Transmit FIFO is 16 Bytes */
+#define ETH_TRANSMITTHRESHOLDCONTROL_64BYTES     0x00000000U
+/*!< threshold level of the MTL Transmit FIFO is 64 Bytes
+*/
+#define ETH_TRANSMITTHRESHOLDCONTROL_128BYTES    0x00004000U
+/*!< threshold level of the MTL Transmit FIFO is 128 Bytes
+*/
+#define ETH_TRANSMITTHRESHOLDCONTROL_192BYTES    0x00008000U
+/*!< threshold level of the MTL Transmit FIFO is 192 Bytes
+*/
+#define ETH_TRANSMITTHRESHOLDCONTROL_256BYTES    0x0000C000U
+/*!< threshold level of the MTL Transmit FIFO is 256 Bytes
+*/
+#define ETH_TRANSMITTHRESHOLDCONTROL_40BYTES     0x00010000U
+/*!< threshold level of the MTL Transmit FIFO is 40 Bytes
+*/
+#define ETH_TRANSMITTHRESHOLDCONTROL_32BYTES     0x00014000U
+/*!< threshold level of the MTL Transmit FIFO is 32 Bytes
+*/
+#define ETH_TRANSMITTHRESHOLDCONTROL_24BYTES     0x00018000U
+/*!< threshold level of the MTL Transmit FIFO is 24 Bytes
+*/
+#define ETH_TRANSMITTHRESHOLDCONTROL_16BYTES     0x0001C000U
+/*!< threshold level of the MTL Transmit FIFO is 16 Bytes
+*/
 /**
   * @}
   */
@@ -1496,10 +1567,18 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
 /** @defgroup ETH_Receive_Threshold_Control ETH Receive Threshold Control
   * @{
   */
-#define ETH_RECEIVEDTHRESHOLDCONTROL_64BYTES      0x00000000U  /*!< threshold level of the MTL Receive FIFO is 64 Bytes */
-#define ETH_RECEIVEDTHRESHOLDCONTROL_32BYTES      0x00000008U  /*!< threshold level of the MTL Receive FIFO is 32 Bytes */
-#define ETH_RECEIVEDTHRESHOLDCONTROL_96BYTES      0x00000010U  /*!< threshold level of the MTL Receive FIFO is 96 Bytes */
-#define ETH_RECEIVEDTHRESHOLDCONTROL_128BYTES     0x00000018U  /*!< threshold level of the MTL Receive FIFO is 128 Bytes */
+#define ETH_RECEIVEDTHRESHOLDCONTROL_64BYTES      0x00000000U
+/*!< threshold level of the MTL Receive FIFO is 64 Bytes
+*/
+#define ETH_RECEIVEDTHRESHOLDCONTROL_32BYTES      0x00000008U
+/*!< threshold level of the MTL Receive FIFO is 32 Bytes
+*/
+#define ETH_RECEIVEDTHRESHOLDCONTROL_96BYTES      0x00000010U
+/*!< threshold level of the MTL Receive FIFO is 96 Bytes
+*/
+#define ETH_RECEIVEDTHRESHOLDCONTROL_128BYTES     0x00000018U
+/*!< threshold level of the MTL Receive FIFO is 128 Bytes
+*/
 /**
   * @}
   */
@@ -1530,8 +1609,12 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
   */
 #define ETH_DMATXDESC_CHECKSUMBYPASS             0x00000000U   /*!< Checksum engine bypass */
 #define ETH_DMATXDESC_CHECKSUMIPV4HEADER         0x00400000U   /*!< IPv4 header checksum insertion  */
-#define ETH_DMATXDESC_CHECKSUMTCPUDPICMPSEGMENT  0x00800000U   /*!< TCP/UDP/ICMP checksum insertion. Pseudo header checksum is assumed to be present */
-#define ETH_DMATXDESC_CHECKSUMTCPUDPICMPFULL     0x00C00000U   /*!< TCP/UDP/ICMP checksum fully in hardware including pseudo header */
+#define ETH_DMATXDESC_CHECKSUMTCPUDPICMPSEGMENT  0x00800000U
+/*!< TCP/UDP/ICMP checksum insertion. Pseudo header
+     checksum is assumed to be present */
+#define ETH_DMATXDESC_CHECKSUMTCPUDPICMPFULL     0x00C00000U
+/*!< TCP/UDP/ICMP checksum fully in hardware including
+     pseudo header */
 /**
   * @}
   */
@@ -1915,25 +1998,26 @@ HAL_StatusTypeDef HAL_ETH_UnRegisterTxFreeCallback(ETH_HandleTypeDef *heth);
 HAL_StatusTypeDef HAL_ETH_ReleaseTxPacket(ETH_HandleTypeDef *heth);
 
 #ifdef HAL_ETH_USE_PTP
-HAL_StatusTypeDef HAL_ETH_PTP_SetConfig(ETH_HandleTypeDef *heth, ETH_PTP_ConfigTypeDef *ptpconfig);
-HAL_StatusTypeDef HAL_ETH_PTP_GetConfig(ETH_HandleTypeDef *heth, ETH_PTP_ConfigTypeDef *ptpconfig);
-HAL_StatusTypeDef HAL_ETH_PTP_SetTime(ETH_HandleTypeDef *heth, ETH_TimeTypeDef *time);
-HAL_StatusTypeDef HAL_ETH_PTP_GetTime(ETH_HandleTypeDef *heth, ETH_TimeTypeDef *time);
-HAL_StatusTypeDef HAL_ETH_PTP_AddTimeOffset(ETH_HandleTypeDef *heth, ETH_PtpUpdateTypeDef ptpoffsettype,
-                                            ETH_TimeTypeDef *timeoffset);
-HAL_StatusTypeDef HAL_ETH_PTP_InsertTxTimestamp(ETH_HandleTypeDef *heth);
-HAL_StatusTypeDef HAL_ETH_PTP_GetTxTimestamp(ETH_HandleTypeDef *heth, ETH_TimeStampTypeDef *timestamp);
-HAL_StatusTypeDef HAL_ETH_PTP_GetRxTimestamp(ETH_HandleTypeDef *heth, ETH_TimeStampTypeDef *timestamp);
+HAL_StatusTypeDef HAL_ETH_PTP_SetConfig(ETH_HandleTypeDef *heth, const ETH_PTP_ConfigTypeDef *ptpconfig);
+HAL_StatusTypeDef HAL_ETH_PTP_GetConfig(const ETH_HandleTypeDef *heth, ETH_PTP_ConfigTypeDef *ptpconfig);
+HAL_StatusTypeDef HAL_ETH_PTP_SetTime(const ETH_HandleTypeDef *heth, const ETH_TimeTypeDef *time);
+HAL_StatusTypeDef HAL_ETH_PTP_GetTime(const ETH_HandleTypeDef *heth, ETH_TimeTypeDef *time);
+HAL_StatusTypeDef HAL_ETH_PTP_AddTimeOffset(const ETH_HandleTypeDef *heth, ETH_PtpUpdateTypeDef ptpoffsettype,
+                                            const ETH_TimeTypeDef *timeoffset);
+HAL_StatusTypeDef HAL_ETH_PTP_InsertTxTimestamp(const ETH_HandleTypeDef *heth);
+HAL_StatusTypeDef HAL_ETH_PTP_GetTxTimestamp(const ETH_HandleTypeDef *heth, ETH_TimeStampTypeDef *timestamp);
+HAL_StatusTypeDef HAL_ETH_PTP_GetRxTimestamp(const ETH_HandleTypeDef *heth, ETH_TimeStampTypeDef *timestamp);
 HAL_StatusTypeDef HAL_ETH_RegisterTxPtpCallback(ETH_HandleTypeDef *heth, pETH_txPtpCallbackTypeDef txPtpCallback);
 HAL_StatusTypeDef HAL_ETH_UnRegisterTxPtpCallback(ETH_HandleTypeDef *heth);
 #endif /* HAL_ETH_USE_PTP */
 
-HAL_StatusTypeDef HAL_ETH_Transmit(ETH_HandleTypeDef *heth, ETH_TxPacketConfigTypeDef *pTxConfig, uint32_t Timeout);
-HAL_StatusTypeDef HAL_ETH_Transmit_IT(ETH_HandleTypeDef *heth, ETH_TxPacketConfigTypeDef *pTxConfig);
+HAL_StatusTypeDef HAL_ETH_Transmit(ETH_HandleTypeDef *heth, const ETH_TxPacketConfigTypeDef *pTxConfig,
+                                   uint32_t Timeout);
+HAL_StatusTypeDef HAL_ETH_Transmit_IT(ETH_HandleTypeDef *heth, const ETH_TxPacketConfigTypeDef *pTxConfig);
 
 HAL_StatusTypeDef HAL_ETH_WritePHYRegister(const ETH_HandleTypeDef *heth, uint32_t PHYAddr, uint32_t PHYReg,
                                            uint32_t RegValue);
-HAL_StatusTypeDef HAL_ETH_ReadPHYRegister(ETH_HandleTypeDef *heth, uint32_t PHYAddr, uint32_t PHYReg,
+HAL_StatusTypeDef HAL_ETH_ReadPHYRegister(const ETH_HandleTypeDef *heth, uint32_t PHYAddr, uint32_t PHYReg,
                                           uint32_t *pRegValue);
 
 void              HAL_ETH_IRQHandler(ETH_HandleTypeDef *heth);
@@ -1957,26 +2041,27 @@ void              HAL_ETH_TxPtpCallback(uint32_t *buff, ETH_TimeStampTypeDef *ti
 /* MAC & DMA Configuration APIs  **********************************************/
 HAL_StatusTypeDef HAL_ETH_GetMACConfig(const ETH_HandleTypeDef *heth, ETH_MACConfigTypeDef *macconf);
 HAL_StatusTypeDef HAL_ETH_GetDMAConfig(const ETH_HandleTypeDef *heth, ETH_DMAConfigTypeDef *dmaconf);
-HAL_StatusTypeDef HAL_ETH_SetMACConfig(ETH_HandleTypeDef *heth, ETH_MACConfigTypeDef *macconf);
-HAL_StatusTypeDef HAL_ETH_SetDMAConfig(ETH_HandleTypeDef *heth, ETH_DMAConfigTypeDef *dmaconf);
-void              HAL_ETH_SetMDIOClockRange(ETH_HandleTypeDef *heth);
+HAL_StatusTypeDef HAL_ETH_SetMACConfig(const ETH_HandleTypeDef *heth, const ETH_MACConfigTypeDef *macconf);
+HAL_StatusTypeDef HAL_ETH_SetDMAConfig(const ETH_HandleTypeDef *heth, const ETH_DMAConfigTypeDef *dmaconf);
+void              HAL_ETH_SetMDIOClockRange(const ETH_HandleTypeDef *heth);
 
 /* MAC VLAN Processing APIs    ************************************************/
-void              HAL_ETH_SetRxVLANIdentifier(ETH_HandleTypeDef *heth, uint32_t ComparisonBits,
+void              HAL_ETH_SetRxVLANIdentifier(const ETH_HandleTypeDef *heth, uint32_t ComparisonBits,
                                               uint32_t VLANIdentifier);
 
 /* MAC L2 Packet Filtering APIs  **********************************************/
 HAL_StatusTypeDef HAL_ETH_GetMACFilterConfig(const ETH_HandleTypeDef *heth, ETH_MACFilterConfigTypeDef *pFilterConfig);
-HAL_StatusTypeDef HAL_ETH_SetMACFilterConfig(ETH_HandleTypeDef *heth, const ETH_MACFilterConfigTypeDef *pFilterConfig);
-HAL_StatusTypeDef HAL_ETH_SetHashTable(ETH_HandleTypeDef *heth, uint32_t *pHashTable);
+HAL_StatusTypeDef HAL_ETH_SetMACFilterConfig(const ETH_HandleTypeDef *heth,
+                                             const ETH_MACFilterConfigTypeDef *pFilterConfig);
+HAL_StatusTypeDef HAL_ETH_SetHashTable(const ETH_HandleTypeDef *heth, const uint32_t *pHashTable);
 HAL_StatusTypeDef HAL_ETH_SetSourceMACAddrMatch(const ETH_HandleTypeDef *heth, uint32_t AddrNbr,
                                                 const uint8_t *pMACAddr);
 
 /* MAC Power Down APIs    *****************************************************/
-void              HAL_ETH_EnterPowerDownMode(ETH_HandleTypeDef *heth,
+void              HAL_ETH_EnterPowerDownMode(const ETH_HandleTypeDef *heth,
                                              const ETH_PowerDownConfigTypeDef *pPowerDownConfig);
-void              HAL_ETH_ExitPowerDownMode(ETH_HandleTypeDef *heth);
-HAL_StatusTypeDef HAL_ETH_SetWakeUpFilter(ETH_HandleTypeDef *heth, uint32_t *pFilter, uint32_t Count);
+void              HAL_ETH_ExitPowerDownMode(const ETH_HandleTypeDef *heth);
+HAL_StatusTypeDef HAL_ETH_SetWakeUpFilter(const ETH_HandleTypeDef *heth, const uint32_t *pFilter, uint32_t Count);
 
 /**
   * @}
@@ -2012,6 +2097,6 @@ uint32_t             HAL_ETH_GetTxBuffersNumber(const ETH_HandleTypeDef *heth);
 
 #ifdef __cplusplus
 }
-#endif
+#endif /* __cplusplus */
 
 #endif /* STM32F4xx_HAL_ETH_H */

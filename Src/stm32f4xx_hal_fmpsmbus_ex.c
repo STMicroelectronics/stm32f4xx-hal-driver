@@ -6,6 +6,7 @@
   *          This file provides firmware functions to manage the following
   *          functionalities of FMPSMBUS Extended peripheral:
   *           + Extended features functions
+  *           + FastModePlus Functions
   *
   ******************************************************************************
   * @attention

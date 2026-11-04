@@ -124,6 +124,9 @@ typedef struct
   uint8_t BootConfig;      /*!< Specifies Option bytes for boot config.
                                 This parameter can be a value of @ref FLASHEx_Dual_Boot */
 
+  uint8_t DB1MConfig;      /*!< Specifies Option bytes for Dual-bank on 1 Mbyte flash config.
+                                This parameter can be a value of @ref FLASHEx_Dual_Bank_1Mbyte */
+
 #endif /*STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F469xx || STM32F479xx */
 } FLASH_AdvOBProgramInitTypeDef;
 #endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F401xC || STM32F401xE || STM32F410xx || STM32F411xE || STM32F446xx ||
@@ -250,8 +253,9 @@ typedef struct
   */
 #if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx) ||\
     defined(STM32F469xx) || defined(STM32F479xx)
-#define OPTIONBYTE_PCROP        0x00000001U  /*!< PCROP option byte configuration      */
-#define OPTIONBYTE_BOOTCONFIG   0x00000002U  /*!< BOOTConfig option byte configuration */
+#define OPTIONBYTE_PCROP        0x00000001U  /*!< PCROP option byte configuration                      */
+#define OPTIONBYTE_BOOTCONFIG   0x00000002U  /*!< BOOTConfig option byte configuration                 */
+#define OPTIONBYTE_DB1M         0x00000004U  /*!< Dual Bank on 1 Mbyte flash option byte configuration */
 #endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F469xx || STM32F479xx */
 
 #if defined(STM32F401xC) || defined(STM32F401xE) || defined(STM32F410Tx) || defined(STM32F410Cx) ||\
@@ -690,6 +694,18 @@ typedef struct
   * @}
   */
 
+/** @defgroup FLASHEx_Dual_Bank_1Mbyte    FLASH Dual-bank on 1 Mbyte 
+  * @{
+  */
+#if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx)|| defined(STM32F439xx) ||\
+    defined(STM32F469xx) || defined(STM32F479xx)
+#define OB_1MBYTE_SINGLE_BANK   ((uint8_t)0x00) /*!< 1 Mbyte single bank flash memory   */
+#define OB_1MBYTE_DUAL_BANK     ((uint8_t)0x40) /*!< 1 Mbyte dual bank flash memory     */
+#endif /* STM32F427xx || STM32F437xx || STM32F429xx|| STM32F439xx || STM32F469xx || STM32F479xx */
+/**
+  * @}
+  */
+
 /** @defgroup  FLASHEx_Selection_Protection_Mode FLASH Selection Protection Mode
   * @{
   */
@@ -848,7 +864,8 @@ uint16_t          HAL_FLASHEx_OB_GetBank2WRP(void);
 #if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx) ||\
     defined(STM32F469xx) || defined(STM32F479xx)
 #define IS_OBEX(VALUE)(((VALUE) == OPTIONBYTE_PCROP) || \
-                       ((VALUE) == OPTIONBYTE_BOOTCONFIG))
+                       ((VALUE) == OPTIONBYTE_BOOTCONFIG) || \
+                       ((VALUE) == OPTIONBYTE_DB1M))
 #endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F469xx || STM32F479xx */
 
 #if defined(STM32F401xC) || defined(STM32F401xE) || defined(STM32F410Tx) || defined(STM32F410Cx) ||\
@@ -1018,6 +1035,7 @@ uint16_t          HAL_FLASHEx_OB_GetBank2WRP(void);
 #if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx) ||\
     defined(STM32F469xx) || defined(STM32F479xx)
 #define IS_OB_BOOT(BOOT) (((BOOT) == OB_DUAL_BOOT_ENABLE) || ((BOOT) == OB_DUAL_BOOT_DISABLE))
+#define IS_OB_DUALBANK_1MBYTE(DB1M) (((DB1M) == OB_1MBYTE_SINGLE_BANK) || ((DB1M) == OB_1MBYTE_DUAL_BANK))
 #endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F469xx || STM32F479xx */
 
 #if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx) ||\

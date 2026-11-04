@@ -120,6 +120,7 @@ static HAL_StatusTypeDef  FLASH_OB_DisablePCROP(uint32_t Sector);
 static HAL_StatusTypeDef FLASH_OB_EnablePCROP(uint32_t SectorBank1, uint32_t SectorBank2, uint32_t Banks);
 static HAL_StatusTypeDef FLASH_OB_DisablePCROP(uint32_t SectorBank1, uint32_t SectorBank2, uint32_t Banks);
 static HAL_StatusTypeDef FLASH_OB_BootConfig(uint8_t BootConfig);
+static HAL_StatusTypeDef FLASH_OB_DB1MConfig(uint8_t DB1MConfig);
 #endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F469xx || STM32F479xx */
 
 extern HAL_StatusTypeDef         FLASH_WaitForLastOperation(uint32_t Timeout);
@@ -409,6 +410,12 @@ HAL_StatusTypeDef HAL_FLASHEx_AdvOBProgram(FLASH_AdvOBProgramInitTypeDef *pAdvOB
   if (((pAdvOBInit->OptionType) & OPTIONBYTE_BOOTCONFIG) == OPTIONBYTE_BOOTCONFIG)
   {
     status = FLASH_OB_BootConfig(pAdvOBInit->BootConfig);
+  }
+
+  /*Program Dual-bank on 1 Mbyte flash option byte*/
+  if (((pAdvOBInit->OptionType) & OPTIONBYTE_DB1M) == OPTIONBYTE_DB1M)
+  {
+    status = FLASH_OB_DB1MConfig(pAdvOBInit->DB1MConfig);
   }
 #endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F469xx || STM32F479xx */
 
@@ -785,6 +792,37 @@ static HAL_StatusTypeDef FLASH_OB_BootConfig(uint8_t BootConfig)
     /* Set Dual Bank Boot */
     *(__IO uint8_t *)OPTCR_BYTE0_ADDRESS &= (~FLASH_OPTCR_BFB2);
     *(__IO uint8_t *)OPTCR_BYTE0_ADDRESS |= BootConfig;
+  }
+
+  return status;
+}
+
+/**
+  * @brief  Configure the Dual-bank on 1 Mbyte flash memory devices.
+  *
+  * @note   This function can only be used with STM32F42xxx/43xxx devices with 1Mbyte of flash memory.
+  *
+  * @param  DB1MConfig specifies the 1 Mbyte Dual-bank Option byte.
+  *          This parameter can be one of the following values:
+  *            @arg OB_1MBYTE_SINGLE_BANK: 1 Mbyte single bank flash memory
+  *            @arg OB_1MBYTE_DUAL_BANK: 1 Mbyte dual bank flash memory 
+  * @retval None
+  */
+static HAL_StatusTypeDef FLASH_OB_DB1MConfig(uint8_t DB1MConfig)
+{
+  HAL_StatusTypeDef status = HAL_OK;
+
+  /* Check the parameters */
+  assert_param(IS_OB_DUALBANK_1MBYTE(DB1MConfig));
+
+  /* Wait for last operation to be completed */
+  status = FLASH_WaitForLastOperation((uint32_t)FLASH_TIMEOUT_VALUE);
+
+  if (status == HAL_OK)
+  {
+    /* Set Dual Bank on 1 Mbyte configuration */
+    *(__IO uint8_t *)OPTCR_BYTE3_ADDRESS &= (~OB_1MBYTE_DUAL_BANK);
+    *(__IO uint8_t *)OPTCR_BYTE3_ADDRESS |= DB1MConfig;
   }
 
   return status;

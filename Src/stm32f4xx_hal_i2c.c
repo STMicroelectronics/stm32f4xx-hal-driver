@@ -2725,7 +2725,10 @@ HAL_StatusTypeDef HAL_I2C_Mem_Read(I2C_HandleTypeDef *hi2c, uint16_t DevAddress,
 
           /* Update counter */
           hi2c->XferSize--;
-          hi2c->XferCount--;
+          if (hi2c->XferCount > 0U)
+          {
+            hi2c->XferCount--;
+          }
         }
         /* Two bytes */
         else if (hi2c->XferSize == 2U)
@@ -2757,7 +2760,10 @@ HAL_StatusTypeDef HAL_I2C_Mem_Read(I2C_HandleTypeDef *hi2c, uint16_t DevAddress,
 
           /* Update counter */
           hi2c->XferSize--;
-          hi2c->XferCount--;
+          if (hi2c->XferCount > 0U)
+          {
+            hi2c->XferCount--;
+          }
         }
         /* 3 Last bytes */
         else
@@ -2807,7 +2813,10 @@ HAL_StatusTypeDef HAL_I2C_Mem_Read(I2C_HandleTypeDef *hi2c, uint16_t DevAddress,
           hi2c->pBuffPtr++;
 
           /* Update counter */
-          hi2c->XferSize--;
+          if (hi2c->XferSize > 0U)
+          {
+            hi2c->XferSize--;
+          }
           hi2c->XferCount--;
         }
       }
@@ -5562,7 +5571,10 @@ static void I2C_MasterReceive_RXNE(I2C_HandleTypeDef *hi2c)
         hi2c->pBuffPtr++;
 
         /* Update counter */
-        hi2c->XferCount--;
+        if (hi2c->XferCount > 0U)
+        {
+          hi2c->XferCount--;
+        }
 
         hi2c->State = HAL_I2C_STATE_READY;
 
@@ -5608,7 +5620,10 @@ static void I2C_MasterReceive_RXNE(I2C_HandleTypeDef *hi2c)
         hi2c->pBuffPtr++;
 
         /* Update counter */
-        hi2c->XferCount--;
+        if (hi2c->XferCount > 0U)
+        {
+          hi2c->XferCount--;
+        }
 
         hi2c->State = HAL_I2C_STATE_READY;
         hi2c->Mode = HAL_I2C_MODE_NONE;

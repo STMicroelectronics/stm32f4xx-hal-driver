@@ -40,9 +40,104 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section35" checked aria-hidden="true"> <label for="collapse-section35" aria-hidden="true">V1.8.5 / 23-July-2025</label>
+<input type="checkbox" id="collapse-section36" checked aria-hidden="true"> <label for="collapse-section36" aria-hidden="true">V1.8.6 / 29-October-2026</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<ul>
+<li>The STM32F4xx HAL drivers comply with the required MISRA-C 2004 standard and rules. However, some MISRA-C 2012 rules are applied to certain IPs to ensure compliance with other STM32 series.
+<ul>
+<li>General updtates to comply with MISRA-C 2012 Rules 8.13 and 12.2.</li>
+</ul></li>
+<li><strong>HAL FLASH</strong> driver
+<ul>
+<li>Update HAL_FLASHEx_AdvOBProgram() API to support programming of the “Dual-bank on 1 Mbyte flash” option byte</li>
+</ul></li>
+<li><strong>HAL GPIO</strong> driver
+<ul>
+<li>Add missing GPIO_AF3_TIM10 define for STM32F411xE devices</li>
+</ul></li>
+<li><strong>HAL ADC</strong> driver
+<ul>
+<li>Update HAL_ADC_Start/_DMA/_IT APIs to Support ADC1,ADC2 in dual mode and ADC3 in independent mode</li>
+</ul></li>
+<li><strong>HAL DFSDM</strong> driver
+<ul>
+<li>Fix HAL_DFSDM_IRQHandler() API to correctly handle multiple pending IRQ flags.</li>
+</ul></li>
+<li><strong>HAL TIM</strong> driver
+<ul>
+<li>Update LL_TIM_HALLSENSOR_Init() API to avoid enabling channel 2.</li>
+<li>Fix UIF flag set after TIM_Base_SetConfig() function.</li>
+<li>Update to disable the TIM complementary channel systematically by TIM_OCx_SetConfig() function.</li>
+</ul></li>
+<li><strong>HAL SDMMC</strong> driver
+<ul>
+<li>General SD and MMC driver enhancement.</li>
+<li>Update HAL SD and MMC process to initialize transfer context.</li>
+<li>Update HAL_MMC_IRQHandler() API to clear data flags before DMA multi-block read.</li>
+<li>Update MMC_ReadExtCSD() function to get error states.</li>
+<li>Update HAL_SD_Init() API to configure correctly SDMMC_BUS_WIDE_4B.</li>
+<li>Update SDMMC_STATIC_DATA_FLAGS clear flag and error flags handling in MMC_ReadExtCSD() function.</li>
+</ul></li>
+<li><strong>HAL ETH</strong> driver
+<ul>
+<li>Fix RMII Ethernet issue when switching to 10Mbits/s.</li>
+<li>Ensure full initialization of Tx/Rx Descriptors list.</li>
+<li>Fix build errors when enabling PTP support.</li>
+<li>Fix intermittent RX packet loss from descriptor/DMA race condition issue.</li>
+<li>Fix Eth bus fault error for Rx context descriptor and remove CSC MACTSCR config.</li>
+<li>Add MAC sync delay in HAL_ETH_Start_IT to prevent missed Rx callbacks.</li>
+</ul></li>
+<li><strong>HAL LTDC</strong> driver
+<ul>
+<li>Add DSI and LTDC driver compilation condition to avoid compilation errors when the DSI module is not enabled.</li>
+</ul></li>
+<li><strong>HAL I2C</strong> driver
+<ul>
+<li>Fix Coverity Overflowed constant warning.</li>
+</ul></li>
+<li><strong>HAL SMBUS</strong> driver
+<ul>
+<li>Fix Coverity Overflowed constant warning.</li>
+</ul></li>
+<li><strong>HAL I2S</strong> driver
+<ul>
+<li>Update the HAL_I2SEx_TransmitReceive/_DMA/_IT APIs header description to clarify that the Size parameter specifies the number of data frames.</li>
+</ul></li>
+<li><strong>HAL CRYP</strong> driver
+<ul>
+<li>Complete the mask array used during the header phase by adding masks for the 1-bit data type.</li>
+<li>Change the AES input size from uint16_t to uint32_t to encrypt more than 65KB at a time.</li>
+</ul></li>
+<li><strong>HAL CAN</strong> driver
+<ul>
+<li>Avoid losing FOVR0 or FULL0 status:
+<ul>
+<li>Update HAL_CAN_GetRxMessage() API to use direct access to the RFOMx bit in CAN RFxR register instead of Read-Modify-Write access.</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL/LL USB</strong> driver
+<ul>
+<li>Correct HS PHY capability definitions in PCD/HCD headers.</li>
+<li>Remove HAL locks from callback registration and un-registration APIs.</li>
+<li>General updtates to comply with MISRA-C 2012 Rule 2.3.</li>
+<li>Correct OTG host DMA data toggle accounting, including zero-length and exact-packet boundary transfers.</li>
+<li>Mask endpoint addresses before OUT endpoint indexing and endpoint range checks.</li>
+<li>Defer OUT halt processing while channel disable is active and clear pending halt status on TXERR.</li>
+<li>Use clock scaled USB timeouts and tick-based waits for polling and reset operations.</li>
+<li>Clear HCSPLT XACTPOS for middle split transactions.</li>
+<li>Validate the receive Data PID reported by OTG_HCTSIZx.</li>
+<li>Add optional NAK auto-activation throttling for split control IN host channels.</li>
+<li>Standardize const qualifier placement in USB HAL APIs.</li>
+<li>Ensure RX fifo empty before aborting OUT Endpoint transfers.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section35" aria-hidden="true"> <label for="collapse-section35" aria-hidden="true">V1.8.5 / 23-July-2025</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <ul>
 <li><strong>HAL SDMMC</strong>
 <ul>
@@ -58,7 +153,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section34" aria-hidden="true"> <label for="collapse-section34" aria-hidden="true">V1.8.4 / 25-April-2025</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>Enhance HAL code quality for MISRA-C 2012 Rule-8.13 by adding const qualifiers.</li>
 <li><strong>HAL RTC</strong>
@@ -135,7 +230,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section33" aria-hidden="true"> <label for="collapse-section33" aria-hidden="true">V1.8.3 / 31-May-2024</label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li>Enhance HAL code quality for MISRA-C Rule-8.13 by adding const qualifiers.</li>
 <li><strong>HAL Generic</strong>
@@ -228,7 +323,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section32" aria-hidden="true"> <label for="collapse-section32" aria-hidden="true">V1.8.2 / 01-November-2023</label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and implementation enhancements.</li>
 <li>HAL code quality enhancement for MISRA-C Rule-8.13 by adding const qualifiers.</li>
@@ -405,7 +500,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section31" aria-hidden="true"> <label for="collapse-section31" aria-hidden="true">V1.8.1 / 24-June-2022</label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <ul>
 <li>General updates to fix HAL ETH defects and implementation enhancements.</li>
 <li><strong>HAL</strong> updates
@@ -425,7 +520,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section30" aria-hidden="true"> <label for="collapse-section30" aria-hidden="true">V1.8.0 / 11-February-2022</label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and implementation enhancements.</li>
 <li>All source files: update disclaimer to add reference to the new license agreement.</li>
@@ -607,7 +702,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section29" aria-hidden="true"> <label for="collapse-section29" aria-hidden="true">V1.7.13 / 16-July-2021</label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <ul>
 <li><strong>HAL</strong> update
 <ul>
@@ -696,7 +791,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section28" aria-hidden="true"> <label for="collapse-section28" aria-hidden="true">V1.7.12 / 26-March-2021</label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
+<h2 id="main-changes-8">Main Changes</h2>
 <ul>
 <li><strong>HAL</strong>
 <ul>
@@ -711,7 +806,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section27" aria-hidden="true"> <label for="collapse-section27" aria-hidden="true">V1.7.11 / 12-February-2021</label>
 <div>
-<h2 id="main-changes-8">Main Changes</h2>
+<h2 id="main-changes-9">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li>Added new <strong>HAL FMPSMBUS extended</strong> driver to support FMPSMBUS fast Mode Plus.</li>
@@ -938,7 +1033,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section26" aria-hidden="true"> <label for="collapse-section26" aria-hidden="true">V1.7.10 / 22-October-2020</label>
 <div>
-<h2 id="main-changes-9">Main Changes</h2>
+<h2 id="main-changes-10">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects.</li>
 <li><strong>HAL/LL I2C</strong> update
@@ -954,7 +1049,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section25" aria-hidden="true"> <label for="collapse-section25" aria-hidden="true">V1.7.9 / 14-August-2020</label>
 <div>
-<h2 id="main-changes-10">Main Changes</h2>
+<h2 id="main-changes-11">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li><strong>HAL/LL I2C</strong> update
@@ -987,7 +1082,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section24" aria-hidden="true"> <label for="collapse-section24" aria-hidden="true">V1.7.8 / 12-February-2020</label>
 <div>
-<h2 id="main-changes-11">Main Changes</h2>
+<h2 id="main-changes-12">Main Changes</h2>
 <ul>
 <li>Add new <strong>HAL FMPSMBUS</strong> and <strong>LL FMPI2C</strong> drivers</li>
 <li>General updates to fix known defects and enhancements implementation</li>
@@ -1026,7 +1121,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section23" aria-hidden="true"> <label for="collapse-section23" aria-hidden="true">V1.7.7 / 06-December-2019</label>
 <div>
-<h2 id="main-changes-12">Main Changes</h2>
+<h2 id="main-changes-13">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li><strong>HAL Generic</strong> update
@@ -1394,7 +1489,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section22" aria-hidden="true"> <label for="collapse-section22" aria-hidden="true">V1.7.6 / 12-April-2019</label>
 <div>
-<h2 id="main-changes-13">Main Changes</h2>
+<h2 id="main-changes-14">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li><strong>HAL I2C</strong> update
@@ -1431,7 +1526,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section21" aria-hidden="true"> <label for="collapse-section21" aria-hidden="true">V1.7.5 / 08-February-2019</label>
 <div>
-<h2 id="main-changes-14">Main Changes</h2>
+<h2 id="main-changes-15">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li>General updates to fix CodeSonar compilation warnings</li>
@@ -1702,7 +1797,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section20" aria-hidden="true"> <label for="collapse-section20" aria-hidden="true">V1.7.4 / 02-February-2018</label>
 <div>
-<h2 id="main-changes-15">Main Changes</h2>
+<h2 id="main-changes-16">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li><strong>HAL</strong> update
@@ -1733,7 +1828,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section19" aria-hidden="true"> <label for="collapse-section19" aria-hidden="true">V1.7.3 / 22-December-2017</label>
 <div>
-<h2 id="main-changes-16">Main Changes</h2>
+<h2 id="main-changes-17">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li><strong>The following changes done on the HAL drivers require an update on the application code based on older HAL versions</strong>
@@ -1816,7 +1911,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section18" aria-hidden="true"> <label for="collapse-section18" aria-hidden="true">V1.7.2 / 06-October-2017</label>
 <div>
-<h2 id="main-changes-17">Main Changes</h2>
+<h2 id="main-changes-18">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li>Fix compilation warning with GCC compiler</li>
@@ -1947,7 +2042,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section17" aria-hidden="true"> <label for="collapse-section17" aria-hidden="true">V1.7.1 / 14-April-2017</label>
 <div>
-<h2 id="main-changes-18">Main Changes</h2>
+<h2 id="main-changes-19">Main Changes</h2>
 <ul>
 <li>Update CHM UserManuals to support LL drivers</li>
 <li>General updates to fix known defects and enhancements implementation</li>
@@ -1977,7 +2072,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section16" aria-hidden="true"> <label for="collapse-section16" aria-hidden="true">V1.7.0 / 17-February-2017</label>
 <div>
-<h2 id="main-changes-19">Main Changes</h2>
+<h2 id="main-changes-20">Main Changes</h2>
 <ul>
 <li><strong>Add Low Layer drivers allowing performance and footprint optimization</strong>
 <ul>
@@ -2151,7 +2246,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section15" aria-hidden="true"> <label for="collapse-section15" aria-hidden="true">V1.6.0 / 04-November-2016</label>
 <div>
-<h2 id="main-changes-20">Main Changes</h2>
+<h2 id="main-changes-21">Main Changes</h2>
 <ul>
 <li>Add support of <strong>STM32F413xx</strong> and <strong>STM32F423xx</strong> devices</li>
 <li>General updates to fix known defects and enhancements implementation</li>
@@ -2258,7 +2353,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section14" aria-hidden="true"> <label for="collapse-section14" aria-hidden="true">V1.5.2 / 22-September-2016</label>
 <div>
-<h2 id="main-changes-21">Main Changes</h2>
+<h2 id="main-changes-22">Main Changes</h2>
 <ul>
 <li><strong>HAL I2C</strong> update
 <ul>
@@ -2289,7 +2384,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section13" aria-hidden="true"> <label for="collapse-section13" aria-hidden="true">V1.5.1 / 01-July-2016</label>
 <div>
-<h2 id="main-changes-22">Main Changes</h2>
+<h2 id="main-changes-23">Main Changes</h2>
 <ul>
 <li><strong>HAL GPIO</strong> update
 <ul>
@@ -2321,7 +2416,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section12" aria-hidden="true"> <label for="collapse-section12" aria-hidden="true">V1.5.0 / 06-May-2016</label>
 <div>
-<h2 id="main-changes-23">Main Changes</h2>
+<h2 id="main-changes-24">Main Changes</h2>
 <ul>
 <li>Add support of <strong>STM32F412cx, STM32F412rx, STM32F412vx and STM32F412zx</strong> devices</li>
 <li>General updates to fix known defects and enhancements implementation</li>
@@ -2697,7 +2792,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section11" aria-hidden="true"> <label for="collapse-section11" aria-hidden="true">V1.4.4 / 22-January-2016</label>
 <div>
-<h2 id="main-changes-24">Main Changes</h2>
+<h2 id="main-changes-25">Main Changes</h2>
 <ul>
 <li><strong>HAL Generic</strong> update
 <ul>
@@ -2931,7 +3026,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section10" aria-hidden="true"> <label for="collapse-section10" aria-hidden="true">V1.4.3 / 11-December-2015</label>
 <div>
-<h2 id="main-changes-25">Main Changes</h2>
+<h2 id="main-changes-26">Main Changes</h2>
 <ul>
 <li><strong>HAL Generic</strong> update
 <ul>
@@ -2951,7 +3046,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section9" aria-hidden="true"> <label for="collapse-section9" aria-hidden="true">V1.4.2 / 10-November-2015</label>
 <div>
-<h2 id="main-changes-26">Main Changes</h2>
+<h2 id="main-changes-27">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation<br />
 </li>
@@ -3037,7 +3132,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section8" aria-hidden="true"> <label for="collapse-section8" aria-hidden="true">V1.4.1 / 09-October-2015</label>
 <div>
-<h2 id="main-changes-27">Main Changes</h2>
+<h2 id="main-changes-28">Main Changes</h2>
 <ul>
 <li><strong>HAL DSI</strong> update
 <ul>
@@ -3052,7 +3147,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section7" aria-hidden="true"> <label for="collapse-section7" aria-hidden="true">V1.4.0 / 14-August-2015</label>
 <div>
-<h2 id="main-changes-28">Main Changes</h2>
+<h2 id="main-changes-29">Main Changes</h2>
 <ul>
 <li>Add support of <strong>STM32F469xx, STM32F479xx, STM32F410Cx, STM32F410Rx and STM32F410Tx</strong> devices</li>
 <li>General updates to fix known defects and enhancements implementation</li>
@@ -3130,7 +3225,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true">V1.3.2 / 26-June-2015</label>
 <div>
-<h2 id="main-changes-29">Main Changes</h2>
+<h2 id="main-changes-30">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li><strong>One changes done on the HAL may require an update on the application code based on HAL V1.3.1</strong>
@@ -3238,7 +3333,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true">V1.3.1 / 25-Mars-2015</label>
 <div>
-<h2 id="main-changes-30">Main Changes</h2>
+<h2 id="main-changes-31">Main Changes</h2>
 <ul>
 <li><strong>HAL PWR</strong> update
 <ul>
@@ -3264,7 +3359,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true">V1.3.0 / 09-Mars-2015</label>
 <div>
-<h2 id="main-changes-31">Main Changes</h2>
+<h2 id="main-changes-32">Main Changes</h2>
 <ul>
 <li>Add support of <strong>STM32F446xx</strong> devices</li>
 <li>General updates to fix known defects and enhancements implementation</li>
@@ -3526,7 +3621,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V1.2.0 / 26-December-2014</label>
 <div>
-<h2 id="main-changes-32">Main Changes</h2>
+<h2 id="main-changes-33">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release to fix known defects and enhancements implementation</strong></li>
 <li><strong>Macros and literals renaming to ensure compatibles across STM32 series</strong>, backward compatibility maintained thanks to new added file stm32_hal_legacy.h under /Inc/Legacy</li>
@@ -4057,7 +4152,7 @@ __WFE()</li>
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">V1.1.0 / 19-June-2014</label>
 <div>
-<h2 id="main-changes-33">Main Changes</h2>
+<h2 id="main-changes-34">Main Changes</h2>
 <ul>
 <li>Add support of <strong>STM32F411xE</strong> devices</li>
 <li><strong>HAL generic</strong> update
@@ -4359,7 +4454,7 @@ __WFE()</li>
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true">V1.0.0 / 18-February-2014</label>
 <div>
-<h2 id="main-changes-34">Main Changes</h2>
+<h2 id="main-changes-35">Main Changes</h2>
 <ul>
 <li>First official release</li>
 </ul>

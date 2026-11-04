@@ -811,6 +811,19 @@ HAL_StatusTypeDef HAL_ADC_Start(ADC_HandleTypeDef *hadc)
         /* Enable the selected ADC software conversion for regular group */
         hadc->Instance->CR2 |= (uint32_t)ADC_CR2_SWSTART;
       }
+#if defined(ADC3)
+     /* if dual mode is selected, ADC3 works independently. */
+      /* check if the mode selected is not triple */
+      if( HAL_IS_BIT_CLR(ADC->CCR, ADC_CCR_MULTI_4) )
+      {
+        /* if instance of handle correspond to ADC3 and no external trigger present enable software conversion of regular channels */
+        if((hadc->Instance == ADC3) && ((hadc->Instance->CR2 & ADC_CR2_EXTEN) == RESET))
+        {
+          /* Enable the selected ADC software conversion for regular group */
+          hadc->Instance->CR2 |= (uint32_t)ADC_CR2_SWSTART;
+        }
+      }
+#endif /* ADC3 */
     }
   }
   else
@@ -1135,6 +1148,19 @@ HAL_StatusTypeDef HAL_ADC_Start_IT(ADC_HandleTypeDef *hadc)
         /* Enable the selected ADC software conversion for regular group */
         hadc->Instance->CR2 |= (uint32_t)ADC_CR2_SWSTART;
       }
+#if defined(ADC3)
+     /* if dual mode is selected, ADC3 works independently. */
+      /* check if the mode selected is not triple */
+      if( HAL_IS_BIT_CLR(ADC->CCR, ADC_CCR_MULTI_4) )
+      {
+        /* if instance of handle correspond to ADC3 and  no external trigger present enable software conversion of regular channels */
+        if((hadc->Instance == ADC3) && ((hadc->Instance->CR2 & ADC_CR2_EXTEN) == RESET))
+        {
+          /* Enable the selected ADC software conversion for regular group */
+          hadc->Instance->CR2 |= (uint32_t)ADC_CR2_SWSTART;
+        }
+      }
+#endif /* ADC3 */
     }
   }
   else
@@ -1488,6 +1514,19 @@ HAL_StatusTypeDef HAL_ADC_Start_DMA(ADC_HandleTypeDef *hadc, uint32_t *pData, ui
         /* Enable the selected ADC software conversion for regular group */
         hadc->Instance->CR2 |= (uint32_t)ADC_CR2_SWSTART;
       }
+#if defined(ADC3)
+      /* if dual mode is selected, ADC3 works independently. */
+      /* check if the mode selected is not triple */
+      if( HAL_IS_BIT_CLR(ADC->CCR, ADC_CCR_MULTI_4) )
+      {
+        /* if instance of handle correspond to ADC3 and  no external trigger present enable software conversion of regular channels */
+        if((hadc->Instance == ADC3) && ((hadc->Instance->CR2 & ADC_CR2_EXTEN) == RESET))
+        {
+          /* Enable the selected ADC software conversion for regular group */
+          hadc->Instance->CR2 |= (uint32_t)ADC_CR2_SWSTART;
+        }
+      }
+#endif /* ADC3 */
     }
   }
   else

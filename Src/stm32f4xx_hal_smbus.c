@@ -2125,7 +2125,10 @@ static HAL_StatusTypeDef SMBUS_MasterReceive_RXNE(SMBUS_HandleTypeDef *hsmbus)
 
       /* Read data from DR */
       (*hsmbus->pBuffPtr++) = hsmbus->Instance->DR;
-      hsmbus->XferCount--;
+      if (hsmbus->XferCount > 0U)
+      {
+        hsmbus->XferCount--;
+      }
 
       hsmbus->State = HAL_SMBUS_STATE_READY;
       hsmbus->PreviousState = SMBUS_STATE_NONE;

@@ -112,7 +112,7 @@ typedef struct __CRYP_HandleTypeDef
 
   __IO uint16_t                     CrypOutCount;     /*!< Counter of output data */
 
-  uint16_t                          Size;           /*!< length of input data in word */
+  uint32_t                          Size;           /*!< length of input data in byte */
 
   uint32_t                          Phase;            /*!< CRYP peripheral phase */
 

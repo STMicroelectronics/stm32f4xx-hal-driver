@@ -386,6 +386,14 @@ void HAL_PWR_DisableWakeUpPin(uint32_t WakeUpPinx)
   *                                                   clear of pending events before.
   *            @arg PWR_SLEEPENTRY_WFE_NO_EVT_CLEAR : Enter SLEEP mode with WFE instruction and
   *                                                   no clear of pending event before.
+  * @note When debugging STM32F4 devices in Sleep or Stop mode entered using WFI/WFE,
+  *       some unreachable instructions may be executed after wake-up.
+  *       This issue occurs only under specific debug, Flash configuration, and instruction
+  *       alignment conditions.
+  *       Refer to ES0206, section 2.2.3, "Debugging Sleep/Stop mode with WFE/WFI entry",
+  *       or the corresponding section in your device's errata sheet.
+  *       HAL/LL does not apply these workarounds automatically. The application must apply an appropriate
+  *       workaround when the conditions described in the errata sheet are met.
   * @retval None
   */
 void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
@@ -440,6 +448,14 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
   *                                                  clear of pending events before.
   *            @arg PWR_STOPENTRY_WFE_NO_EVT_CLEAR : Enter STOP mode with WFE instruction and
   *                                                  no clear of pending event before.
+  * @note When debugging STM32F4 devices in Sleep or Stop mode entered using WFI/WFE,
+  *       some unreachable instructions may be executed after wake-up.
+  *       This issue occurs only under specific debug, Flash configuration, and instruction
+  *       alignment conditions.
+  *       Refer to ES0206, section 2.2.3, "Debugging Sleep/Stop mode with WFE/WFI entry",
+  *       or the corresponding section in your device's errata sheet.
+  *       HAL/LL does not apply these workarounds automatically. The application must apply an appropriate
+  *       workaround when the conditions described in the errata sheet are met.
   * @retval None
   */
 void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)

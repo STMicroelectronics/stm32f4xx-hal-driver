@@ -1544,55 +1544,50 @@ HAL_StatusTypeDef HAL_FMPSMBUS_IsDeviceReady(FMPSMBUS_HandleTypeDef *hfmpsmbus, 
         /* Wait until STOPF flag is reset */
         if (FMPSMBUS_WaitOnFlagUntilTimeout(hfmpsmbus, FMPSMBUS_FLAG_STOPF, RESET, Timeout) != HAL_OK)
         {
-          return HAL_ERROR;
+          /* A non acknowledge appear during STOP Flag waiting process, a new trial must be performed */
+          /* Clear STOP Flag */
+          __HAL_FMPSMBUS_CLEAR_FLAG(hfmpsmbus, FMPSMBUS_FLAG_STOPF);
+
+          /* Reset the error code for next trial */
+          hfmpsmbus->ErrorCode = HAL_FMPSMBUS_ERROR_NONE;
         }
+        else
+        {
+          /* A acknowledge appear during STOP Flag waiting process, this mean that device respond to its address */
 
-        /* Clear STOP Flag */
-        __HAL_FMPSMBUS_CLEAR_FLAG(hfmpsmbus, FMPSMBUS_FLAG_STOPF);
+          /* Clear STOP Flag */
+          __HAL_FMPSMBUS_CLEAR_FLAG(hfmpsmbus, FMPSMBUS_FLAG_STOPF);
 
-        /* Device is ready */
-        hfmpsmbus->State = HAL_FMPSMBUS_STATE_READY;
+          /* Device is ready */
+          hfmpsmbus->State = HAL_FMPSMBUS_STATE_READY;
 
-        /* Process Unlocked */
-        __HAL_UNLOCK(hfmpsmbus);
+          /* Process Unlocked */
+          __HAL_UNLOCK(hfmpsmbus);
 
-        return HAL_OK;
+          return HAL_OK;
+        }
       }
       else
       {
-        /* Wait until STOPF flag is reset */
-        if (FMPSMBUS_WaitOnFlagUntilTimeout(hfmpsmbus, FMPSMBUS_FLAG_STOPF, RESET, Timeout) != HAL_OK)
-        {
-          return HAL_ERROR;
-        }
+        /* A non acknowledge is detected, this mean that device not respond to its address,
+           a new trial must be performed */
 
         /* Clear NACK Flag */
         __HAL_FMPSMBUS_CLEAR_FLAG(hfmpsmbus, FMPSMBUS_FLAG_AF);
 
-        /* Clear STOP Flag, auto generated with autoend*/
-        __HAL_FMPSMBUS_CLEAR_FLAG(hfmpsmbus, FMPSMBUS_FLAG_STOPF);
-      }
-
-      /* Check if the maximum allowed number of trials has been reached */
-      if (FMPSMBUS_Trials == Trials)
-      {
-        /* Generate Stop */
-        hfmpsmbus->Instance->CR2 |= FMPI2C_CR2_STOP;
-
         /* Wait until STOPF flag is reset */
-        if (FMPSMBUS_WaitOnFlagUntilTimeout(hfmpsmbus, FMPSMBUS_FLAG_STOPF, RESET, Timeout) != HAL_OK)
+        if (FMPSMBUS_WaitOnFlagUntilTimeout(hfmpsmbus, FMPSMBUS_FLAG_STOPF, RESET, Timeout) == HAL_OK)
         {
-          return HAL_ERROR;
+          /* Clear STOP Flag, auto generated with autoend*/
+          __HAL_FMPSMBUS_CLEAR_FLAG(hfmpsmbus, FMPSMBUS_FLAG_STOPF);
         }
-
-        /* Clear STOP Flag */
-        __HAL_FMPSMBUS_CLEAR_FLAG(hfmpsmbus, FMPSMBUS_FLAG_STOPF);
       }
 
       /* Increment Trials */
       FMPSMBUS_Trials++;
     } while (FMPSMBUS_Trials < Trials);
 
+    /* Update FMPSMBUS state */
     hfmpsmbus->State = HAL_FMPSMBUS_STATE_READY;
 
     /* Update FMPSMBUS error code */
@@ -1960,7 +1955,7 @@ static HAL_StatusTypeDef FMPSMBUS_Master_ISR(FMPSMBUS_HandleTypeDef *hfmpsmbus, 
         /* Increment Buffer pointer */
         hfmpsmbus->pBuffPtr++;
 
-        if ((hfmpsmbus->XferSize > 0U))
+        if (hfmpsmbus->XferSize > 0U)
         {
           hfmpsmbus->XferSize--;
           hfmpsmbus->XferCount--;
@@ -2388,7 +2383,7 @@ static HAL_StatusTypeDef FMPSMBUS_Slave_ISR(FMPSMBUS_HandleTypeDef *hfmpsmbus, u
         /* Increment Buffer pointer */
         hfmpsmbus->pBuffPtr++;
 
-        if ((hfmpsmbus->XferSize > 0U))
+        if (hfmpsmbus->XferSize > 0U)
         {
           hfmpsmbus->XferSize--;
           hfmpsmbus->XferCount--;

@@ -6816,6 +6816,9 @@ void TIM_Base_SetConfig(TIM_TypeDef *TIMx, const TIM_Base_InitTypeDef *Structure
      and the repetition counter (only for advanced timer) value immediately */
   TIMx->EGR = TIM_EGR_UG;
 
+  /* Ensure that the update event is generated before writing back CR1 register with URS = 0 */
+  __DSB();
+
   TIMx->CR1 = tmpcr1;
 }
 

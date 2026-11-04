@@ -1,6 +1,6 @@
 # STM32CubeF4 HAL Driver MCU Component
 
-![latest tag](https://img.shields.io/github/v/tag/STMicroelectronics/stm32f4xx_hal_driver.svg?color=brightgreen)
+![tag](https://img.shields.io/badge/tag-v1.8.6-brightgreen.svg)
 
 ## Overview
 
