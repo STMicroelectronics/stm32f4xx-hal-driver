@@ -3822,8 +3822,19 @@ HAL_StatusTypeDef HAL_TIM_Encoder_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Cha
   */
 void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
 {
-  uint32_t itsource = htim->Instance->DIER;
-  uint32_t itflag   = htim->Instance->SR;
+  uint32_t itsource;
+  uint32_t itflag;
+
+  if ((htim == NULL) || (htim->Instance == NULL))
+  {
+    return;
+  }
+
+  /* Check the parameter */
+  assert_param(IS_TIM_INSTANCE(htim->Instance));
+
+  itsource = htim->Instance->DIER;
+  itflag   = htim->Instance->SR;
 
   /* Capture compare 1 event */
   if ((itflag & (TIM_FLAG_CC1)) == (TIM_FLAG_CC1))
