@@ -86,11 +86,11 @@ extern "C" {
                                         ((__BURST__) == FSMC_WRITE_BURST_ENABLE))
 #define IS_FSMC_CONTINOUS_CLOCK(__CCLOCK__) (((__CCLOCK__) == FSMC_CONTINUOUS_CLOCK_SYNC_ONLY) || \
                                              ((__CCLOCK__) == FSMC_CONTINUOUS_CLOCK_SYNC_ASYNC))
-#define IS_FSMC_ADDRESS_SETUP_TIME(__TIME__) ((__TIME__) <= 15U)
-#define IS_FSMC_ADDRESS_HOLD_TIME(__TIME__) (((__TIME__) > 0U) && ((__TIME__) <= 15U))
-#define IS_FSMC_DATASETUP_TIME(__TIME__) (((__TIME__) > 0U) && ((__TIME__) <= 255U))
+#define IS_FSMC_ADDRESS_SETUP_TIME(__SETUPTIME__) ((__SETUPTIME__) <= 15U)
+#define IS_FSMC_ADDRESS_HOLD_TIME(__HOLDTIME__) (((__HOLDTIME__) > 0U) && ((__HOLDTIME__) <= 15U))
+#define IS_FSMC_DATASETUP_TIME(__DATASETTIME__) (((__DATASETTIME__) > 0U) && ((__DATASETTIME__) <= 255U))
 #define IS_FSMC_DATAHOLD_DURATION(__DATAHOLD__) ((__DATAHOLD__) <= 3U)
-#define IS_FSMC_TURNAROUND_TIME(__TIME__) ((__TIME__) <= 15U)
+#define IS_FSMC_TURNAROUND_TIME(__TURNAROUNDTIME__) ((__TURNAROUNDTIME__) <= 15U)
 #define IS_FSMC_CLK_DIV(__DIV__) (((__DIV__) > 1U) && ((__DIV__) <= 16U))
 #define IS_FSMC_NORSRAM_DEVICE(__INSTANCE__) ((__INSTANCE__) == FSMC_NORSRAM_DEVICE)
 #define IS_FSMC_NORSRAM_EXTENDED_DEVICE(__INSTANCE__) ((__INSTANCE__) == FSMC_NORSRAM_EXTENDED_DEVICE)
@@ -113,12 +113,12 @@ extern "C" {
                                         ((__SIZE__) == FSMC_NAND_ECC_PAGE_SIZE_2048BYTE) || \
                                         ((__SIZE__) == FSMC_NAND_ECC_PAGE_SIZE_4096BYTE) || \
                                         ((__SIZE__) == FSMC_NAND_ECC_PAGE_SIZE_8192BYTE))
-#define IS_FSMC_TCLR_TIME(__TIME__) ((__TIME__) <= 255U)
-#define IS_FSMC_TAR_TIME(__TIME__) ((__TIME__) <= 255U)
-#define IS_FSMC_SETUP_TIME(__TIME__) ((__TIME__) <= 254U)
-#define IS_FSMC_WAIT_TIME(__TIME__) ((__TIME__) <= 254U)
-#define IS_FSMC_HOLD_TIME(__TIME__) ((__TIME__) <= 254U)
-#define IS_FSMC_HIZ_TIME(__TIME__) ((__TIME__) <= 254U)
+#define IS_FSMC_TCLR_TIME(__TCLR__) ((__TCLR__) <= 255U)
+#define IS_FSMC_TAR_TIME(__TAR__) ((__TAR__) <= 255U)
+#define IS_FSMC_SETUP_TIME(__SETUPTIME__) ((__SETUPTIME__) <= 254U)
+#define IS_FSMC_WAIT_TIME(__WAITTIME__) ((__WAITTIME__) <= 254U)
+#define IS_FSMC_HOLD_TIME(__HOLDTIME__) ((__HOLDTIME__) <= 254U)
+#define IS_FSMC_HIZ_TIME(__HIZTIME__) ((__HIZTIME__) <= 254U)
 #define IS_FSMC_NAND_DEVICE(__INSTANCE__) ((__INSTANCE__) == FSMC_NAND_DEVICE)
 
 #endif /* FSMC_Bank2_3 */
